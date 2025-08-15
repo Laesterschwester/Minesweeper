@@ -1,6 +1,6 @@
 import config
 import pygame
-import bombNumberDisplayGrid
+
 
 class Tile:
     bomb = False
@@ -15,32 +15,32 @@ class Tile:
         self.position = position
         pass
 
-    def isEmpty(self):
+    def is_empty(self):
         if not self.bomb and not self.flag:
             return True
         else:
             return False
 
-    def getBoolFlag(self):
+    def get_bool_flag(self):
         return self.visible
 
-    def setFlag(self):
+    def set_flag(self):
         self.flag = True
 
-    def deleteFlag(self):
+    def delete_flag(self):
         self.flag = False
 
-    def placeBomb(self):
+    def place_bomb(self):
         self.bomb = True
 
-    def changeColor(self, col):
+    def change_color(self, col):
         self.color = col
 
-    def clickTile(self, event):
+    def click_tile(self, event):
         if event.button == 1 and not self.flag:
             self.reveal()
         elif event.button == 3:
-            if self.flag == False and self.visible:
+            if not self.flag and self.visible:
                 self.flag = True
             else:
                 self.flag = False
@@ -48,6 +48,10 @@ class Tile:
     def reveal(self):
         self.visible = False
 
-    def drawTile(self, display):
+    def draw_tile(self, display):
         if self.visible:
-            pygame.draw.rect(display, self.color, (self.position[0], self.position[1], self.width, self.width))
+            pygame.draw.rect(
+                display,
+                self.color,
+                (self.position[0], self.position[1], self.width, self.width),
+            )
